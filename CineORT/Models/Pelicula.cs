@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CineORT.Models
 {
@@ -20,8 +21,12 @@ namespace CineORT.Models
         public string? Imagen { get; set; }
 
         //Relación con Género
-        public Genero Genero { get; set; }
+        public int? GeneroId { get; set; }
+        [ForeignKey("GeneroId")]
+        public Genero? Genero { get; set; }
         //Relación con Clasificación
-        public Clasificacion Clasificacion { get; set; }
+        public int? ClasificacionId { get; set; }
+        [ForeignKey("ClasificacionId")]
+        public Clasificacion? Clasificacion { get; set; }
     }
 }

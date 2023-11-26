@@ -11,10 +11,5 @@ namespace CineORT.Models
         [MinLength(2, ErrorMessage = ErrorViewModel.CaracteresMinimos)]
         [MaxLength(20, ErrorMessage = ErrorViewModel.CaracteresMaximos)]
         public string Nombre { get; set; }
-
-        //Relación con Película
-        public int? PeliculaId { get; set; }
-        [ForeignKey("PeliculaId")]
-        public Pelicula? Pelicula { get; set; }
     }
 }

@@ -12,13 +12,14 @@ namespace CineORT.Models
         public DateTime HorarioFuncion { get; set; }
         public int? AsientosDisponibles { get; set; }
         public bool? IsLlena { get; set; }
-        //Relación con Reserva 
-        public int? ReservaId { get; set; }
-        [ForeignKey("ReservaId")]
-        public Reserva? Reserva { get; set; }
 
         //Relaciones con Sala Y Película
+        public int? SalaId { get; set; }
+        [ForeignKey("SalaId")]
         public Sala? Sala { get; set; }
+        public int? PeliculaId { get; set; }
+        [ForeignKey("PeliculaId")]
+
         public Pelicula? Pelicula { get; set; }
     }
 }

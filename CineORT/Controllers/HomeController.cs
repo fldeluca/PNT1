@@ -18,7 +18,7 @@ namespace CineORT.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult VistaError()
         {
             return View();
         }

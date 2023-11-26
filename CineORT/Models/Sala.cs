@@ -13,9 +13,5 @@ namespace CineORT.Models
         [Required(ErrorMessage = ErrorViewModel.CampoRequerido)]
         [Range(30,150)]
         public int Capacidad { get; set; }
-
-        //Relación con Función 1 a 1
-        public int? FuncionId { get; set; }
-        public Funcion? Funcion { get; set; }
     }
 }
