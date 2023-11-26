@@ -62,6 +62,8 @@ namespace CineORT.Controllers
         {
             if (ModelState.IsValid)
             {
+                reserva.FechaReserva = DateTime.Now;
+                reserva.ReservaConfirmada = true;
                 _context.Add(reserva);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

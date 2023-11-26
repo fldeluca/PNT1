@@ -12,9 +12,10 @@ namespace CineORT.Models
         public double? Precio { get; set; }
         [Required(ErrorMessage = ErrorViewModel.CampoRequerido)]
         [Range(1, 100)]
+        [Display(Name = "Asientos reservados")]
         public int CantidadAsientos { get; set; }
         [Display(Name = "Reserva confirmada")]
-        public bool? ReservaConfirmada { get; set; } = false;
+        public bool? ReservaConfirmada { get; set; }
         public int? ClienteId { get; set; }
         [ForeignKey("ClienteId")]
         public Cliente? Cliente { get; set; }

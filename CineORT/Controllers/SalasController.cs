@@ -59,6 +59,11 @@ namespace CineORT.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (await SalaDuplicada(sala.Nombre))
+                {
+                    return RedirectToAction("VistaError", "Home");
+                }
+
                 _context.Add(sala);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -96,6 +101,12 @@ namespace CineORT.Controllers
 
             if (ModelState.IsValid)
             {
+                if (await SalaDuplicada(sala.Nombre))
+                {
+                    return RedirectToAction("VistaError", "Home");
+                }
+
+
                 try
                 {
                     _context.Update(sala);
@@ -157,6 +168,18 @@ namespace CineORT.Controllers
         private bool SalaExists(int id)
         {
           return (_context.Sala?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        private async Task<bool> SalaDuplicada(string Nombre)
+        {
+            var sala = await _context.Sala.Where(s => s.Nombre.ToUpper() == Nombre.ToUpper()).FirstOrDefaultAsync();
+
+            if (sala == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

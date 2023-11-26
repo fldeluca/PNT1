@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Listado de Reservas</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Crear Reserva</a>
 </p>
 <table class="table">
     <thead>
@@ -20,9 +20,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CantidadAsientos)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReservaConfirmada)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Cliente)
@@ -46,18 +43,15 @@
                 @Html.DisplayFor(modelItem => item.CantidadAsientos)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ReservaConfirmada)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Cliente.Apellido)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Funcion.FuncionId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ReservaId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ReservaId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ReservaId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.ReservaId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.ReservaId">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.ReservaId">Borrar</a>
             </td>
         </tr>
 }

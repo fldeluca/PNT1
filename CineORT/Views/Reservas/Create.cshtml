@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Crear una reserva</h1>
 
 <h4>Reserva</h4>
 <hr />
@@ -12,11 +12,8 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FechaReserva" class="control-label"></label>
-                <input asp-for="FechaReserva" class="form-control" />
-                <span asp-validation-for="FechaReserva" class="text-danger"></span>
-            </div>
+                <input asp-for="FechaReserva" class="form-control" hidden/>
+                
             <div class="form-group">
                 <label asp-for="Precio" class="control-label"></label>
                 <input asp-for="Precio" class="form-control" />
@@ -27,11 +24,8 @@
                 <input asp-for="CantidadAsientos" class="form-control" />
                 <span asp-validation-for="CantidadAsientos" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ReservaConfirmada" class="control-label"></label>
-                <input asp-for="ReservaConfirmada" class="form-control" />
-                <span asp-validation-for="ReservaConfirmada" class="text-danger"></span>
-            </div>
+                <input asp-for="ReservaConfirmada" class="form-check-input" checked hidden />
+
             <div class="form-group">
                 <label asp-for="ClienteId" class="control-label"></label>
                 <select asp-for="ClienteId" class ="form-control" asp-items="ViewBag.ClienteId"></select>
@@ -48,7 +42,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver al listado</a>
 </div>
 
 @section Scripts {

@@ -59,6 +59,11 @@ namespace CineORT.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                if (await GeneroDuplicado(genero.Nombre))
+                {
+                    return RedirectToAction("VistaError", "Home");
+                }
                 _context.Add(genero);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -98,6 +103,11 @@ namespace CineORT.Controllers
             {
                 try
                 {
+                    if (await GeneroDuplicado(genero.Nombre))
+                    {
+                        return RedirectToAction("VistaError", "Home");
+                    }
+
                     _context.Update(genero);
                     await _context.SaveChangesAsync();
                 }
@@ -157,6 +167,18 @@ namespace CineORT.Controllers
         private bool GeneroExists(int id)
         {
           return (_context.Genero?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        private async Task<bool> GeneroDuplicado(string Nombre)
+        {
+            var genero = await _context.Genero.Where(g => g.Nombre.ToUpper() == Nombre.ToUpper()).FirstOrDefaultAsync();
+
+            if (genero == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

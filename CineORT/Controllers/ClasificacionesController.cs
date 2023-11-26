@@ -59,6 +59,12 @@ namespace CineORT.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                if(await ClasificacionDuplicada(clasificacion.Nombre))
+                {
+                    return RedirectToAction("VistaError", "Home");
+                }
+
                 _context.Add(clasificacion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -94,8 +100,16 @@ namespace CineORT.Controllers
                 return NotFound();
             }
 
+            
+
             if (ModelState.IsValid)
             {
+                if (await ClasificacionDuplicada(clasificacion.Nombre))
+                {
+                    return RedirectToAction("VistaError", "Home");
+                }
+
+
                 try
                 {
                     _context.Update(clasificacion);
@@ -157,6 +171,18 @@ namespace CineORT.Controllers
         private bool ClasificacionExists(int id)
         {
           return (_context.Clasificacion?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        private async Task<bool> ClasificacionDuplicada(string Nombre)
+        {
+            var clasificacion = await _context.Clasificacion.Where(c => c.Nombre.ToUpper() == Nombre.ToUpper()).FirstOrDefaultAsync();
+
+            if (clasificacion == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

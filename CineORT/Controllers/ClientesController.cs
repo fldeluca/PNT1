@@ -44,6 +44,7 @@ namespace CineORT.Controllers
             return View(cliente);
         }
 
+
         // GET: Clientes/Create
         public IActionResult Create()
         {
@@ -59,6 +60,11 @@ namespace CineORT.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (await ClienteExistente(cliente.Dni))
+                {
+                    return RedirectToAction("VistaError", "Home");
+                }
+
                 _context.Add(cliente);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -96,6 +102,12 @@ namespace CineORT.Controllers
 
             if (ModelState.IsValid)
             {
+                if (await ClienteExistente(cliente.Dni))
+                {
+                    return RedirectToAction("VistaError", "Home");
+                }
+
+
                 try
                 {
                     _context.Update(cliente);
@@ -157,6 +169,18 @@ namespace CineORT.Controllers
         private bool ClienteExists(int id)
         {
           return (_context.Cliente?.Any(e => e.ClienteId == id)).GetValueOrDefault();
+        }
+
+        private async Task<bool> ClienteExistente(string Dni)
+        {
+            var cliente = await _context.Cliente.Where(c => c.Dni == Dni).FirstOrDefaultAsync();
+
+            if (cliente == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
