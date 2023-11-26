@@ -19,5 +19,7 @@ using CineORT.Models;
         public DbSet<CineORT.Models.Reserva> Reserva { get; set; } = default!;
         public DbSet<CineORT.Models.Sala> Sala { get; set; } = default!;
 
+
+
         
     }

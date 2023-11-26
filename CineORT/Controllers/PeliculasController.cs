@@ -26,6 +26,13 @@ namespace CineORT.Controllers
             return View(await dbContext.ToListAsync());
         }
 
+        //GET: Peliculas/Cartelera
+        public async Task<IActionResult> Cartelera()
+        {
+            var dbContext = _context.Pelicula.Include(p => p.Clasificacion).Include(p => p.Genero);
+            return View(await dbContext.ToListAsync());
+        }
+
         // GET: Peliculas/Details/5
         public async Task<IActionResult> Details(int? id)
         {

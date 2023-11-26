@@ -1,0 +1,30 @@
+﻿@model IEnumerable<CineORT.Models.Pelicula>
+
+@{
+    ViewData["Title"] = "Cartelera";
+}
+
+<div class="container-fluid">
+    <div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            <div class="card shadow p-3 mb-5 bg-body-tertiary rounded" style="width: 25rem;">
+            <img class="card-img-top" src="@item.Imagen" alt="@item.Nombre">
+            <hr>
+            <div class="card-body">
+                <h5 class="card-title">@item.Nombre</h5>
+                <p class="card-text">@item.Sinopsis</p>
+                <p class="card-text">Género: @Html.DisplayFor(modelItem => item.Genero.Nombre)</p>
+                <p class="card-text">Clasificación: @Html.DisplayFor(modelItem => item.Clasificacion.Nombre)</p>
+                <p class="card-text">Duración: @item.Duracion minutos</p>
+                <hr>
+                <a asp-controller="Reservas" asp-action="Index" class="btn btn-primary">Reservar</a>
+            </div>
+        </div>
+        </div>
+    }
+    </div>
+</div>
+
+
