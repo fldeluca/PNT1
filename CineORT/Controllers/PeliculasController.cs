@@ -12,6 +12,7 @@ namespace CineORT.Controllers
     public class PeliculasController : Controller
     {
         private readonly DbContext _context;
+        private const string _imagenPorDefecto = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEWkIy-r_wPsAyyUZGJoZbCvugZUWqlG3nRA&usqp=CAU";
 
         public PeliculasController(DbContext context)
         {
@@ -65,6 +66,11 @@ namespace CineORT.Controllers
                 if (await PeliculaDuplicada(pelicula.Nombre))
                 {
                     return RedirectToAction("VistaError", "Home");
+                }
+
+                if (pelicula.Imagen == null)
+                {
+                    pelicula.Imagen = _imagenPorDefecto;
                 }
 
                 _context.Add(pelicula);

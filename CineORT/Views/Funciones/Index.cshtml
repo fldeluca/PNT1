@@ -19,9 +19,6 @@
                 @Html.DisplayNameFor(model => model.AsientosDisponibles)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsLlena)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Sala)
             </th>
             <th>
@@ -40,16 +37,13 @@
                 @Html.DisplayFor(modelItem => item.AsientosDisponibles)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsLlena)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Sala.Nombre)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Pelicula.Nombre)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.FuncionId">Edit</a> |
+
                 <a asp-action="Details" asp-route-id="@item.FuncionId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.FuncionId">Delete</a>
             </td>

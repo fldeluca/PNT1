@@ -62,6 +62,18 @@ namespace CineORT.Controllers
         {
             if (ModelState.IsValid)
             {
+                Sala? sala = await _context.Sala.FindAsync(funcion.SalaId);
+              
+
+                if (sala != null)
+                {
+                    funcion.Sala = sala;
+                    funcion.AsientosDisponibles = sala.Capacidad;
+                } else
+                {
+                    funcion.AsientosDisponibles = 0;
+                }
+
                 _context.Add(funcion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -71,60 +83,6 @@ namespace CineORT.Controllers
             return View(funcion);
         }
 
-        // GET: Funciones/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Funcion == null)
-            {
-                return NotFound();
-            }
-
-            var funcion = await _context.Funcion.FindAsync(id);
-            if (funcion == null)
-            {
-                return NotFound();
-            }
-            ViewData["PeliculaId"] = new SelectList(_context.Pelicula, "PeliculaId", "Nombre", funcion.PeliculaId);
-            ViewData["SalaId"] = new SelectList(_context.Sala, "Id", "Nombre", funcion.SalaId);
-            return View(funcion);
-        }
-
-        // POST: Funciones/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FuncionId,HorarioFuncion,AsientosDisponibles,IsLlena,SalaId,PeliculaId")] Funcion funcion)
-        {
-            if (id != funcion.FuncionId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(funcion);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!FuncionExists(funcion.FuncionId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["PeliculaId"] = new SelectList(_context.Pelicula, "PeliculaId", "Nombre", funcion.PeliculaId);
-            ViewData["SalaId"] = new SelectList(_context.Sala, "Id", "Nombre", funcion.SalaId);
-            return View(funcion);
-        }
 
         // GET: Funciones/Delete/5
         public async Task<IActionResult> Delete(int? id)

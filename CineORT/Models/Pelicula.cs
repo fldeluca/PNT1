@@ -13,6 +13,7 @@ namespace CineORT.Models
         public string Nombre { get; set; }
         [Required(ErrorMessage = ErrorViewModel.CampoRequerido)]
         [Display(Name = "Duración en minutos")]
+        [Range(45, 250)]
         public int Duracion { get; set; }
         [Required(ErrorMessage = ErrorViewModel.CampoRequerido)]
         [MinLength(2, ErrorMessage = ErrorViewModel.CaracteresMinimos)]

@@ -62,71 +62,41 @@ namespace CineORT.Controllers
         {
             if (ModelState.IsValid)
             {
-                reserva.FechaReserva = DateTime.Now;
-                reserva.ReservaConfirmada = true;
-                _context.Add(reserva);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ClienteId"] = new SelectList(_context.Cliente, "ClienteId", "Apellido", reserva.ClienteId);
-            ViewData["FuncionId"] = new SelectList(_context.Funcion, "FuncionId", "FuncionId", reserva.FuncionId);
-            return View(reserva);
-        }
 
-        // GET: Reservas/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Reserva == null)
-            {
-                return NotFound();
-            }
+                Funcion? funcion = await _context.Funcion.FindAsync(reserva.FuncionId);
+                
 
-            var reserva = await _context.Reserva.FindAsync(id);
-            if (reserva == null)
-            {
-                return NotFound();
-            }
-            ViewData["ClienteId"] = new SelectList(_context.Cliente, "ClienteId", "Apellido", reserva.ClienteId);
-            ViewData["FuncionId"] = new SelectList(_context.Funcion, "FuncionId", "FuncionId", reserva.FuncionId);
-            return View(reserva);
-        }
-
-        // POST: Reservas/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ReservaId,FechaReserva,Precio,CantidadAsientos,ReservaConfirmada,ClienteId,FuncionId")] Reserva reserva)
-        {
-            if (id != reserva.ReservaId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
+                if(funcion != null)
                 {
-                    _context.Update(reserva);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
+                    reserva.Funcion = funcion;
+                    if (funcion.AsientosDisponibles - reserva.CantidadAsientos >= 0)
+                    {
+                        funcion.AsientosDisponibles -= reserva.CantidadAsientos;
+                        reserva.FechaReserva = DateTime.Now;
+                        reserva.ReservaConfirmada = true;
+                        _context.Add(reserva);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    } else
+                    {
+                        return RedirectToAction("VistaError", "Home");
+                    }
+
+                    
+                } else
                 {
-                    if (!ReservaExists(reserva.ReservaId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return RedirectToAction("VistaError", "Home");
                 }
-                return RedirectToAction(nameof(Index));
+                
             }
             ViewData["ClienteId"] = new SelectList(_context.Cliente, "ClienteId", "Apellido", reserva.ClienteId);
             ViewData["FuncionId"] = new SelectList(_context.Funcion, "FuncionId", "FuncionId", reserva.FuncionId);
             return View(reserva);
         }
+
+        
+
+     
 
         // GET: Reservas/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -160,10 +130,20 @@ namespace CineORT.Controllers
             var reserva = await _context.Reserva.FindAsync(id);
             if (reserva != null)
             {
-                _context.Reserva.Remove(reserva);
+                Funcion? funcion = await _context.Funcion.FindAsync(reserva.FuncionId);
+                if (funcion != null)
+                {
+                    funcion.AsientosDisponibles += reserva.CantidadAsientos;
+                    _context.Reserva.Remove(reserva);
+                    await _context.SaveChangesAsync();
+                } else
+                {
+                    return RedirectToAction("VistaError", "Home");
+                }
+                
             }
             
-            await _context.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
 

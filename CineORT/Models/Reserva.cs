@@ -11,7 +11,6 @@ namespace CineORT.Models
         public DateTime? FechaReserva { get; set; }
         public double? Precio { get; set; }
         [Required(ErrorMessage = ErrorViewModel.CampoRequerido)]
-        [Range(1, 100)]
         [Display(Name = "Asientos reservados")]
         public int CantidadAsientos { get; set; }
         [Display(Name = "Reserva confirmada")]

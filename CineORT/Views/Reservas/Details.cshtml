@@ -38,11 +38,10 @@
             @Html.DisplayNameFor(model => model.Funcion)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Funcion.Pelicula)
+            @Html.DisplayFor(model => model.Funcion)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ReservaId">Editar</a> |
     <a asp-action="Index">Volver al listado</a>
 </div>
