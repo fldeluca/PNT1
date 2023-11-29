@@ -31,14 +31,14 @@ namespace CineORT.Controllers
         {
             if (id == null || _context.Genero == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             var genero = await _context.Genero
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (genero == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             return View(genero);
@@ -76,13 +76,13 @@ namespace CineORT.Controllers
         {
             if (id == null || _context.Genero == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             var genero = await _context.Genero.FindAsync(id);
             if (genero == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
             return View(genero);
         }
@@ -96,7 +96,7 @@ namespace CineORT.Controllers
         {
             if (id != genero.Id)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             if (ModelState.IsValid)
@@ -115,7 +115,7 @@ namespace CineORT.Controllers
                 {
                     if (!GeneroExists(genero.Id))
                     {
-                        return NotFound();
+                        return RedirectToAction("VistaError", "Home");
                     }
                     else
                     {
@@ -132,14 +132,14 @@ namespace CineORT.Controllers
         {
             if (id == null || _context.Genero == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             var genero = await _context.Genero
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (genero == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             return View(genero);

@@ -31,14 +31,14 @@ namespace CineORT.Controllers
         {
             if (id == null || _context.Cliente == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             var cliente = await _context.Cliente
                 .FirstOrDefaultAsync(m => m.ClienteId == id);
             if (cliente == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             return View(cliente);
@@ -77,13 +77,13 @@ namespace CineORT.Controllers
         {
             if (id == null || _context.Cliente == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             var cliente = await _context.Cliente.FindAsync(id);
             if (cliente == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
             return View(cliente);
         }
@@ -97,7 +97,7 @@ namespace CineORT.Controllers
         {
             if (id != cliente.ClienteId)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             if (ModelState.IsValid)
@@ -117,7 +117,7 @@ namespace CineORT.Controllers
                 {
                     if (!ClienteExists(cliente.ClienteId))
                     {
-                        return NotFound();
+                        return RedirectToAction("VistaError", "Home");
                     }
                     else
                     {
@@ -134,14 +134,14 @@ namespace CineORT.Controllers
         {
             if (id == null || _context.Cliente == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             var cliente = await _context.Cliente
                 .FirstOrDefaultAsync(m => m.ClienteId == id);
             if (cliente == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             return View(cliente);

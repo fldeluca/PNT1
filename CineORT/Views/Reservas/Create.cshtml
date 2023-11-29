@@ -14,11 +14,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input asp-for="FechaReserva" class="form-control" hidden/>
                 
-            <div class="form-group">
-                <label asp-for="Precio" class="control-label"></label>
-                <input asp-for="Precio" class="form-control" />
-                <span asp-validation-for="Precio" class="text-danger"></span>
-            </div>
+
+                <input asp-for="Precio" class="form-control" hidden />
+
             <div class="form-group">
                 <label asp-for="CantidadAsientos" class="control-label"></label>
                 <input asp-for="CantidadAsientos" class="form-control" />

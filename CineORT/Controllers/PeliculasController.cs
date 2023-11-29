@@ -38,7 +38,7 @@ namespace CineORT.Controllers
         {
             if (id == null || _context.Pelicula == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             var pelicula = await _context.Pelicula
@@ -47,7 +47,7 @@ namespace CineORT.Controllers
                 .FirstOrDefaultAsync(m => m.PeliculaId == id);
             if (pelicula == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             return View(pelicula);
@@ -94,13 +94,13 @@ namespace CineORT.Controllers
         {
             if (id == null || _context.Pelicula == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             var pelicula = await _context.Pelicula.FindAsync(id);
             if (pelicula == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
             ViewData["ClasificacionId"] = new SelectList(_context.Clasificacion, "Id", "Nombre", pelicula.ClasificacionId);
             ViewData["GeneroId"] = new SelectList(_context.Genero, "Id", "Nombre", pelicula.GeneroId);
@@ -116,16 +116,18 @@ namespace CineORT.Controllers
         {
             if (id != pelicula.PeliculaId)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             if (ModelState.IsValid)
             {
+
+
                 try
                 {
-                    if (await PeliculaDuplicada(pelicula.Nombre))
+                    if (pelicula.Imagen == null)
                     {
-                        return RedirectToAction("VistaError", "Home");
+                        pelicula.Imagen = _imagenPorDefecto;
                     }
 
                     _context.Update(pelicula);
@@ -135,7 +137,7 @@ namespace CineORT.Controllers
                 {
                     if (!PeliculaExists(pelicula.PeliculaId))
                     {
-                        return NotFound();
+                        return RedirectToAction("VistaError", "Home");
                     }
                     else
                     {
@@ -154,7 +156,7 @@ namespace CineORT.Controllers
         {
             if (id == null || _context.Pelicula == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             var pelicula = await _context.Pelicula
@@ -163,7 +165,7 @@ namespace CineORT.Controllers
                 .FirstOrDefaultAsync(m => m.PeliculaId == id);
             if (pelicula == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             return View(pelicula);

@@ -31,14 +31,14 @@ namespace CineORT.Controllers
         {
             if (id == null || _context.Sala == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             var sala = await _context.Sala
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (sala == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             return View(sala);
@@ -76,13 +76,13 @@ namespace CineORT.Controllers
         {
             if (id == null || _context.Sala == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             var sala = await _context.Sala.FindAsync(id);
             if (sala == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
             return View(sala);
         }
@@ -96,7 +96,7 @@ namespace CineORT.Controllers
         {
             if (id != sala.Id)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             if (ModelState.IsValid)
@@ -116,7 +116,7 @@ namespace CineORT.Controllers
                 {
                     if (!SalaExists(sala.Id))
                     {
-                        return NotFound();
+                        return RedirectToAction("VistaError", "Home");
                     }
                     else
                     {
@@ -133,14 +133,14 @@ namespace CineORT.Controllers
         {
             if (id == null || _context.Sala == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             var sala = await _context.Sala
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (sala == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             return View(sala);

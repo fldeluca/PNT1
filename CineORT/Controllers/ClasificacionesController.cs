@@ -31,14 +31,14 @@ namespace CineORT.Controllers
         {
             if (id == null || _context.Clasificacion == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             var clasificacion = await _context.Clasificacion
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (clasificacion == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             return View(clasificacion);
@@ -77,13 +77,13 @@ namespace CineORT.Controllers
         {
             if (id == null || _context.Clasificacion == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             var clasificacion = await _context.Clasificacion.FindAsync(id);
             if (clasificacion == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
             return View(clasificacion);
         }
@@ -97,7 +97,7 @@ namespace CineORT.Controllers
         {
             if (id != clasificacion.Id)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             
@@ -119,7 +119,7 @@ namespace CineORT.Controllers
                 {
                     if (!ClasificacionExists(clasificacion.Id))
                     {
-                        return NotFound();
+                        return RedirectToAction("VistaError", "Home");
                     }
                     else
                     {
@@ -136,14 +136,14 @@ namespace CineORT.Controllers
         {
             if (id == null || _context.Clasificacion == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             var clasificacion = await _context.Clasificacion
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (clasificacion == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             return View(clasificacion);

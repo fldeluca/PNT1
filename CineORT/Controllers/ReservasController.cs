@@ -12,6 +12,7 @@ namespace CineORT.Controllers
     public class ReservasController : Controller
     {
         private readonly DbContext _context;
+        private const double _precioDefault = 150;
 
         public ReservasController(DbContext context)
         {
@@ -30,7 +31,7 @@ namespace CineORT.Controllers
         {
             if (id == null || _context.Reserva == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             var reserva = await _context.Reserva
@@ -39,7 +40,7 @@ namespace CineORT.Controllers
                 .FirstOrDefaultAsync(m => m.ReservaId == id);
             if (reserva == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             return View(reserva);
@@ -71,6 +72,7 @@ namespace CineORT.Controllers
                     reserva.Funcion = funcion;
                     if (funcion.AsientosDisponibles - reserva.CantidadAsientos >= 0)
                     {
+                        reserva.Precio = reserva.CantidadAsientos * _precioDefault;
                         funcion.AsientosDisponibles -= reserva.CantidadAsientos;
                         reserva.FechaReserva = DateTime.Now;
                         reserva.ReservaConfirmada = true;
@@ -103,7 +105,7 @@ namespace CineORT.Controllers
         {
             if (id == null || _context.Reserva == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             var reserva = await _context.Reserva
@@ -112,7 +114,7 @@ namespace CineORT.Controllers
                 .FirstOrDefaultAsync(m => m.ReservaId == id);
             if (reserva == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             return View(reserva);

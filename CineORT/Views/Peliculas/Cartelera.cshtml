@@ -4,13 +4,27 @@
     ViewData["Title"] = "Cartelera";
 }
 
+<style>
+    .titulo {
+        text-align: center;
+    }
+
+    .subtitulo {
+        text-align: center;
+    }
+</style>
+
+<h1 class="titulo">¡Bienvenido a CineORT!</h1>
+<h3 class="subtitulo">Disfruta de las mejores películas </h3>
+<hr />
+
 <div class="container-fluid">
     <div class="row">
     @foreach (var item in Model)
     {
         <div class="col">
             <div class="card shadow p-3 mb-5 bg-body-tertiary rounded" style="width: 25rem;">
-            <img class="card-img-top" src="@item.Imagen" alt="@item.Nombre">
+            <img class="card-img-top" src="@item.Imagen" alt="@item.Nombre" height="400">
             <hr>
             <div class="card-body">
                 <h5 class="card-title">@item.Nombre</h5>
@@ -26,5 +40,4 @@
     }
     </div>
 </div>
-
 

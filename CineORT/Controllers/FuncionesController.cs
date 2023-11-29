@@ -30,7 +30,7 @@ namespace CineORT.Controllers
         {
             if (id == null || _context.Funcion == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             var funcion = await _context.Funcion
@@ -39,7 +39,7 @@ namespace CineORT.Controllers
                 .FirstOrDefaultAsync(m => m.FuncionId == id);
             if (funcion == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             return View(funcion);
@@ -89,7 +89,7 @@ namespace CineORT.Controllers
         {
             if (id == null || _context.Funcion == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             var funcion = await _context.Funcion
@@ -98,7 +98,7 @@ namespace CineORT.Controllers
                 .FirstOrDefaultAsync(m => m.FuncionId == id);
             if (funcion == null)
             {
-                return NotFound();
+                return RedirectToAction("VistaError", "Home");
             }
 
             return View(funcion);
