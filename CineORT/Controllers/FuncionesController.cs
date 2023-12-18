@@ -74,6 +74,11 @@ namespace CineORT.Controllers
                     funcion.AsientosDisponibles = 0;
                 }
 
+                if (await FuncionDuplicada(funcion.HorarioFuncion, funcion.SalaId))
+                {
+                    return RedirectToAction("VistaError", "Home");
+                }
+
                 _context.Add(funcion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -126,6 +131,18 @@ namespace CineORT.Controllers
         private bool FuncionExists(int id)
         {
           return (_context.Funcion?.Any(e => e.FuncionId == id)).GetValueOrDefault();
+        }
+
+        private async Task<bool> FuncionDuplicada(DateTime horarioFuncion, int? salaId)
+        {
+            var Funcion = await _context.Funcion.Where(f => f.SalaId == salaId && f.HorarioFuncion == horarioFuncion).FirstOrDefaultAsync();    
+
+            if (Funcion == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
